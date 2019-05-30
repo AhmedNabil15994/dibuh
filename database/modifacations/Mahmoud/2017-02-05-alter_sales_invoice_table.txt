@@ -1,0 +1,5 @@
+ALTER TABLE `sales_invoices` CHANGE `discount` `total_discount` DOUBLE(11,2) NOT NULL;
+
+ALTER TABLE `sales_invoices` CHANGE `net_amount` `total_amount` FLOAT(11,2) NOT NULL;
+
+ALTER TABLE `sales_invoices` ADD `total_invoice` FLOAT(11,2) NOT NULL AFTER `total_discount`;

@@ -1,0 +1,1 @@
+UPDATE `roles` SET `name` = 'account-manager' WHERE `roles`.`id` = 6;

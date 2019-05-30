@@ -1,0 +1,116 @@
+@extends(Config::get('back_theme').'.layouts.app')
+
+@section('htmlheader_title')
+{{ trans('backend/%%crudName%%.list') }}
+@endsection
+
+@section('contentheader_title')
+{{ trans('backend/%%crudName%%.list') }}
+@endsection
+
+@section('contentheader_description')
+ 
+
+@endsection
+
+<!--breadcrumb current page-->
+@section('current_breadcrumb')
+{{ trans('backend/%%crudName%%.list') }}
+@endsection
+
+@section('page-scripts')
+@include(Config::get('back_theme').'.layouts.modals.js.comfirm_delete_js')
+@show 
+
+
+@section('content')
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">        
+        <div class="box box-info">  
+            @if ($message = Session::get('flash_message'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+            @endif
+
+ 
+
+            <div class="box-header with-border">
+                <div class="pull-left">
+
+                     <h3 class="box-title">{{ trans('backend/%%crudName%%.list') }}</h3> 
+
+                </div>
+                <div class="pull-right">
+                    @permission('%%roleName%%-create')
+                    <a class="btn btn-success btn-md" href="{{ route('admin::%%crudName%%.create') }}"><i class="fa fa-plus"></i> {{ trans('button.create') }}</a> 
+                    @endpermission
+                </div>
+            </div>
+
+
+
+                
+                        <div class="table-responsive">
+                        <div class="box-body">
+                            <table class="table table-borderless deleteFormModal" data-form="deleteForm">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>%%formHeadingHtml%%<th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($%%crudName%% as $item)
+                                    <tr>
+                                        <td>{{ $item->id }}</td>
+                                        %%formBodyHtml%%
+                                        <td>
+                                        
+                                            @permission('%%roleName%%-edit')
+                                                <a href="{{ url('/%%routeGroup%%%%viewName%%/' . $item->%%primaryKey%%) }}" class="btn btn-success btn-sm" title="View %%modelName%%"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
+
+                                                <a href="{{ route('admin::%%crudName%%.edit',$item->%%primaryKey%%)  }}" class="btn btn-primary btn-sm" title="Edit %%modelName%%"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                                            @endpermission
+
+                                            @permission('%%roleName%%-delete')
+                                                {!! Form::open([
+                                                'method'=>'DELETE',
+                                                'route' => ['admin::%%crudName%%.destroy', $item->%%primaryKey%%],
+                                                'style' => 'display:inline',
+                                                'class'=>'form-delete'
+                                                ]) !!}
+                                                   {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Delete %%modelName%%" />', array(
+                                                        'type' => 'submit',
+                                                        'class' => 'btn btn-danger btn-sm delete',
+                                                        'title' => 'Delete %%modelName%%',
+                                                        'name' => 'delete',
+                                                        'alt'=>trans('button.delete')
+                                                     )) !!}
+                                                {!! Form::close() !!}
+                                            @endpermission
+                                           
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            
+                            <div class="box-footer">
+                                <div class="pagination-wrapper"> {!! $%%crudName%%->render() !!} </div>
+                            </div>                            
+                        </div>
+
+                    
+        </div>
+    </div>
+</div> 
+</div> 
+ <!--include modal for  Deleting Confirmation-->
+@include(Config::get('back_theme').'.layouts.modals.comfirm_delete')         
+@endsection
+
+
+ 
+
+ 

@@ -1,0 +1,60 @@
+@extends(Config::get('back_theme').'.layouts.app')
+@section('htmlheader_title')
+{{ trans('backend/user_settings.update_new') }}
+@endsection
+
+@section('contentheader_title')
+{{ trans('backend/user_settings.update_new') }}
+@endsection
+
+@section('contentheader_description')
+{{ trans('backend/user_settings.contentheader_description') }}
+@endsection
+
+
+@section('content')
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">        
+        <div class="box box-info">
+
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ trans('backend/user_settings.update_new') }}</h3>
+            </div>
+
+            @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
+                        {!! Form::model($user_setting, [
+                            'method' => 'PATCH',
+                            'route' => ['admin::user_settings.update', $user_setting->id],
+                            'class' => 'form-horizontal',
+                            'files' => true
+                        ]) !!}
+                           <div class="box-body">  
+
+                                @include ('backend/adminTle.user_settings.form')
+                            </div> 
+                            <div class="box-footer">
+                                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+ 
+                    <button type="submit" class="btn btn-success pull-left"><i class="fa fa-save"></i> {{ trans('button.update') }}</button>      
+                    <a class="btn btn-danger pull-right" href="{{ route('admin::user_settings.index') }}"><i class="fa fa-home "></i>  {{ trans('button.cancel') }}</a>                                         
+                                </div>
+                            </div>  
+
+
+                        {!! Form::close() !!}
+
+        </div>
+    </div>
+</div> 
+@endsection

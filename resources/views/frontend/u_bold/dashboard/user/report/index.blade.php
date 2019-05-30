@@ -1,0 +1,402 @@
+@extends(Config::get('front_theme').'.layouts.default')
+
+
+@section('title',$page_title)
+
+@section('page-styles')
+
+    <link href="plugins/bootstrap-table/css/bootstrap-table.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.0/css/buttons.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.4/css/select.bootstrap.min.css">
+    <!-- export file -->
+    <!-- export file -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
+
+@endsection()
+
+
+@section('subnav')
+    @include(Config::get('front_theme').'.dashboard.'.$userType.'.'.$module.'.inc.subnav')
+@endsection
+
+
+
+
+@section('content')
+
+
+
+   <link href="plugins/bootstrap-table/css/bootstrap-table.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
+ 
+
+    <div class="row m-b-20" style="margin-top: 75px;">
+        <div class="col-xs-12 ">
+            <h4 class="page-title">المالية</h4>
+            <p class="text-muted page-title-alt m-b-0">من هنا يمكنك متابعه اموالك</p>
+        </div>
+    </div>
+
+
+
+    
+    
+
+<div class="panel panel-default page-panel">
+       
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-5 pull-right " style="padding: 0">
+
+                    <button id="btnFilter" type="button" class="btn btn-default waves-effect waves-light pull-right" style="margin: 0 5px;"><i class="md md-filter-list"></i> فيلتر </button>
+
+                    <div class="btn-group pull-right export">
+                        <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-upload"></i> تصدير <span class="caret"></span> </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">PDF File</a></li>
+                            <li><a href="#">Excel File</a></li>
+                            <li><a href="#">Csv File</a></li>
+                            <li><a href="#">Html File</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                {{--'status_All'=>'الكل',--}}
+                {{--'status_Save'=>'خزائن',--}}
+                {{--'status_Bank'=>'بنوك',--}}
+                <ul class="panel-nav pull-left">
+                    <li><a class="active" id="state_all"    href="javascript:void(0)"  link="">الكل</a></li>
+                    <li><a class="" id="status_Save"  href="javascript:void(0)"  link="">خزائن</a></li>
+                    <li><a class="" id="status_Bank"    href="javascript:void(0)"  link="">بنوك</a></li> 
+                </ul>
+                
+            </div>
+        </div>
+    
+ 
+        
+        <div class="panel-body">
+            <div class="filter" style="display: none">
+               <div class="row ">
+                   <div class="col-md-2 col-xs-12">
+                       <div class="form-group has-feedback ">
+                           <label for="filterSearch" class="control-label">البحث :</label>
+                           <input class="form-control " type="text" name="filterSearch" id="filterSearch" value="">
+                           <span class="fa fa-search fa-fw form-control-feedback"></span>
+                       </div>
+                   </div>
+                   <div class="col-md-2 col-xs-12">
+                       <div class="form-group has-feedback ">
+                           <label for="filterCustomer" class="control-label">العميل :</label>
+                           <input class="form-control" type="text" name="filterCustomer" id="filterCustomer" value="" >
+                           <span class="fa fa-user fa-fw form-control-feedback"></span>
+                       </div>
+                   </div>
+                   <div class="col-md-2 col-xs-12">
+                       <div class="form-group has-feedback ">
+                           <label for="start-date" class="control-label">تاريخ البدء :</label>
+                           <input  class="form-control" type="text" name="filterStartdate" id="start-date" placeholder="mm/dd/yyyy" value="">
+                           <span class="fa fa-calendar fa-fw form-control-feedback"></span>
+                       </div>
+                   </div>
+                   <div class="col-md-2 col-xs-12">
+                       <div class="form-group has-feedback ">
+                           <label for="end-date" class="control-label">تاريخ الانتهاء :</label>
+                           <input class="form-control" type="text" name="filterenddate" id="end-date" placeholder="mm/dd/yyyy" value="" >
+                           <span class="fa fa-calendar fa-fw form-control-feedback"></span>
+                       </div>
+                   </div>
+                   <div class="col-md-2 col-xs-12">
+                       <div class="form-group has-feedback ">
+                           <label for="filterTags" class="control-label">الكلمات الدلالية :</label>
+                           <input class="form-control" type="text" name="filterTags" id="filterTags" value="" >
+                           <span class="fa fa-tags fa-fw form-control-feedback"></span>
+                       </div>
+                   </div>
+                   <div class="col-md-2 col-xs-12">
+                       <div class="form-group-without-label">
+                           <button type="button" id="btnClearFilters" class="btn btn-white waves-effect ">الغاء المدخلات </button>
+                       </div>
+                   </div>
+               </div>
+            </div>
+            <div class="pbody table-responsive">
+                <div class="BoxContent card-box">
+                    <table class="table table-hover table-striped " id="demo-foo-filtering" data-page-size="6">
+                        <thead>
+                            <tr>
+                                <th>النوع</th>
+                                <th>الوصف</th>
+                                <th>رقم الحساب</th>
+                                <th>الرصيد الحالى</th>
+
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <div class="tableBody">
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>2222</td>
+                                    <td>5555</td>
+                                    <td>999999</td>
+                                    <td>
+                                        <a class="btn btn-default waves-effect waves-light" href="">
+                                            <i class="fa fa-edit"></i> تعديل </a>
+                                        
+                                        <form method="POST" action="" accept-charset="UTF-8" style="display:inline"><input name="" type="hidden" value="DELETE">
+                                            
+                                        <input name="" type="hidden" value="">
+                                        
+                                        <button type="submit" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> حذف</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                
+                              <tr>
+                                    <td>1</td>
+                                    <td>2222</td>
+                                    <td>5555</td>
+                                    <td>999999</td>
+                                    <td>
+                                        <a class="btn btn-default waves-effect waves-light" href="">
+                                            <i class="fa fa-edit"></i> تعديل </a>
+                                        
+                                        <form method="POST" action="" accept-charset="UTF-8" style="display:inline"><input name="" type="hidden" value="DELETE">
+                                            
+                                        <input name="" type="hidden" value="">
+                                        
+                                        <button type="submit" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> حذف</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                
+                               <tr>
+                                    <td>1</td>
+                                    <td>2222</td>
+                                    <td>5555</td>
+                                    <td>999999</td>
+                                    <td>
+                                        <a class="btn btn-default waves-effect waves-light" href="">
+                                            <i class="fa fa-edit"></i> تعديل </a>
+                                        
+                                        <form method="POST" action="" accept-charset="UTF-8" style="display:inline"><input name="" type="hidden" value="DELETE">
+                                            
+                                        <input name="" type="hidden" value="">
+                                        
+                                        <button type="submit" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> حذف</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td>1</td>
+                                    <td>2222</td>
+                                    <td>5555</td>
+                                    <td>999999</td>
+                                    <td>
+                                        <a class="btn btn-default waves-effect waves-light" href="">
+                                            <i class="fa fa-edit"></i> تعديل </a>
+                                        
+                                        <form method="POST" action="" accept-charset="UTF-8" style="display:inline"><input name="" type="hidden" value="DELETE">
+                                            
+                                        <input name="" type="hidden" value="">
+                                        
+                                        <button type="submit" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> حذف</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td>1</td>
+                                    <td>2222</td>
+                                    <td>5555</td>
+                                    <td>999999</td>
+                                    <td>
+                                        <a class="btn btn-default waves-effect waves-light" href="">
+                                            <i class="fa fa-edit"></i> تعديل </a>
+                                        
+                                        <form method="POST" action="" accept-charset="UTF-8" style="display:inline"><input name="" type="hidden" value="DELETE">
+                                            
+                                        <input name="" type="hidden" value="">
+                                        
+                                        <button type="submit" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> حذف</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td>1</td>
+                                    <td>2222</td>
+                                    <td>5555</td>
+                                    <td>999999</td>
+                                    <td>
+                                        <a class="btn btn-default waves-effect waves-light" href="">
+                                            <i class="fa fa-edit"></i> تعديل </a>
+                                        
+                                        <form method="POST" action="" accept-charset="UTF-8" style="display:inline"><input name="" type="hidden" value="DELETE">
+                                            
+                                        <input name="" type="hidden" value="">
+                                        
+                                        <button type="submit" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> حذف</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td>1</td>
+                                    <td>2222</td>
+                                    <td>5555</td>
+                                    <td>999999</td>
+                                    <td>
+                                        <a class="btn btn-default waves-effect waves-light" href="">
+                                            <i class="fa fa-edit"></i> تعديل </a>
+                                        
+                                        <form method="POST" action="" accept-charset="UTF-8" style="display:inline"><input name="" type="hidden" value="DELETE">
+                                            
+                                        <input name="" type="hidden" value="">
+                                        
+                                        <button type="submit" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> حذف</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td>1</td>
+                                    <td>2222</td>
+                                    <td>5555</td>
+                                    <td>999999</td>
+                                    <td>
+                                        <a class="btn btn-default waves-effect waves-light" href="">
+                                            <i class="fa fa-edit"></i> تعديل </a>
+                                        
+                                        <form method="POST" action="" accept-charset="UTF-8" style="display:inline"><input name="" type="hidden" value="DELETE">
+                                            
+                                        <input name="" type="hidden" value="">
+                                        
+                                        <button type="submit" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> حذف</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                           
+                        </tbody>
+
+                        </div>
+                        
+                        
+                        <tfoot>
+                            <tr>
+                                <td colspan="12">
+                                    <div class="text-right">
+                                        <ul class="pagination pagination-split m-t-30 m-b-0"style="    direction: ltr;"></ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                        
+                    </table>
+                        <div class="row">
+                            <div class="col-xs-4 pull-left" style="margin-top:-50px">
+                                <a class="btn btn-default waves-effect waves-light" href="{{ route('cost.create') }}">   أضافة خزنة او بنك  </a>
+                            </div>
+                        </div>                  
+                </div>
+            </div>
+        </div>
+    
+    </div>
+
+
+
+@endsection
+
+@section('page-scripts')
+    
+	<!-- export files -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+<!-- export files -->
+    <script src="plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script>
+       jQuery(document).ready(function($) {
+			
+			$('#demo-foo-filtering').DataTable({
+			   dom: 'Bfrtip',
+			  buttons: [
+			'csv', 'excel', 'pdf', 'print'
+			  ]
+			 });
+		   
+            $( "#btnFilter" ).click(function() {
+                $( ".filter" ).slideToggle( 200, function() {
+
+                });
+            });
+
+           $('#start-date , #end-date').datepicker({
+               autoclose: true,
+               todayHighlight: true
+           });
+
+           $('#btnClearFilters').click(function () {
+                $('#filterSearch,#filterCustomer,#start-date,#end-date,#filterTags').val('');
+                $('#filterSearch').focus();
+           });
+
+
+           $('body').on('click', '.page-panel .pagination a', function(ev) {
+               ev.preventDefault();
+//               var page_number = $(this).attr('href').split('page=')[1];
+               getData(null,$(this).attr('href'));
+           });
+
+           $('#state_all,#state_Save,#state_Bank').click(function () {
+               if ($(this).hasClass('active')){
+                   return void (0);
+               }else{
+                   $('.page-panel .panel-heading .panel-nav a.active').removeClass('active');
+                   $(this).addClass('active');
+                   getData(null , $(this).attr('link'));
+               }
+
+           });
+
+
+           function getData(page_number , url) {
+               url = url || '?page=' + page_number
+//               window.history.pushState("", "", url);
+               var outerBox = '.page-panel';
+               var Box = '.page-panel .BoxContent';
+               var loaging = '<div id="overlayPagination" class="overlay overlay-x1"><i class="fa fa-spinner fa-pulse fa-fw" ></i></div>';
+               $(outerBox + ' .btn').attr('disabled','disabled');
+               $(Box + ' #overlayPagination').remove();
+               $(Box).append(loaging);
+               $.ajax({
+                   url : url
+               }).done(function (data) {
+                   $(Box).html(data);
+                   $('.CopyedPagination').html($('.NewPagination').html());
+                   $('.BoxContent #overlayPagination').remove();
+                   $(outerBox + ' .btn').removeAttr('disabled','disabled');
+               }).fail(function () {
+                   $('.BoxContent #overlayPagination').remove();
+                   $('.BoxContent #overlayError').remove();
+                   var error = '<div id="overlayError" class="alert alert-danger" style="margin: 0"><h4>خطأ في الاتصال<i class="fa fa-exclamation fa-fw"></i></h4><p>حدث خطأ اثناء الاتصال قد يكون انقطاع في الاتصال . حاول مرة اخري</p></div>';
+                   $(Box).html(error);
+               });
+           }
+
+
+        });
+    </script>
+
+@endsection
+ 
+ 
+
+ 

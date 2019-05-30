@@ -1,0 +1,4 @@
+<li><a class="{{Active('report.main')}}" href="{{Active('report.main') ? 'javascript:void(0)' :  route('report.main')}}">الميزان العام</a></li>
+<li><a class="{{Active('operating_analysis.main')}}" href="{{Active('operating_analysis.main') ? 'javascript:void(0)' :  route('operating_analysis.main')}}">تحليل مصروفات عامة</a></li>
+<li><a class="{{Active('General_administrative.main')}}" href="{{Active('General_administrative.main') ? 'javascript:void(0)' :  route('General_administrative.main')}}"> تحليل مصوفات تشغيل</a></li>
+<li><a class="{{Active('report.invoice')}}" href="{{Active('report.invoice') ? 'javascript:void(0)' :  route('report.invoice')}}">الفواتير المفتوحة للعملاء والموردين</a></li>

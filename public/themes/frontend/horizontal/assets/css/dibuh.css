@@ -1,0 +1,5 @@
+html, body, div, nav{ direction: rtl; }
+#topnav .topbar-main{ background-color: #53535f; }
+#topnav .navigation-menu > li { float:right; }
+#topnav .navigation-menu > li:first-child > a { padding-right: 0;}
+.footer { text-align: right !important; }

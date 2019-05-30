@@ -1,0 +1,93 @@
+
+/*
+ * Droid Arabic Kufi (Arabic) http://www.google.com/fonts/earlyaccess
+ */
+@font-face {
+    font-family: 'Droid';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/Droid_Arabic_Kufi/DroidKufi-Regular.eot');
+    src: url('../fonts/Droid_Arabic_Kufi/DroidKufi-Regular.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Droid_Arabic_Kufi/DroidKufi-Regular.woff2') format('woff2'),
+    url('../fonts/Droid_Arabic_Kufi/DroidKufi-Regular.woff') format('woff'),
+    url('../fonts/Droid_Arabic_Kufi/DroidKufi-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Droid';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/Droid_Arabic_Kufi/DroidKufi-Bold.eot');
+    src: url('../fonts/Droid_Arabic_Kufi/DroidKufi-Bold.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Droid_Arabic_Kufi/DroidKufi-Bold.woff2') format('woff2'),
+    url('../fonts/Droid_Arabic_Kufi/DroidKufi-Bold.woff') format('woff'),
+    url('../fonts/Droid_Arabic_Kufi/DroidKufi-Bold.ttf') format('truetype');
+}
+body{
+    font-family: Droid,'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif  !important;
+}
+
+@media (max-width: 580px) {
+    .menu-extras ul.nav {
+        display: none;
+    }
+}
+@media (max-width: 991px){
+    .wrapper {
+        padding-top: 40px;
+    }
+}
+@media (min-width: 992px){
+    .wrapper {
+        padding-top: 121px;
+    }
+    #topnav .navigation-menu > li > a i {
+        display: inline-block;
+        margin-bottom: 1px;
+        margin-left: 5px;
+    }
+    #topnav .navigation-menu > li > a {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    #topnav .navigation-menu > li:first-of-type a {
+        padding-right: 15px;
+    }
+    #topnav .navigation-menu > li:first-of-type{
+        margin-right: -15px;
+    }
+    #topnav .navigation-menu > li{
+        border-bottom: solid 2px #fff;
+    }
+    #topnav .navigation-menu > li:hover,
+    #topnav .navigation-menu .active{
+        border-bottom: solid 2px #5fbeaa;
+    }
+    #topnav .navigation-menu .active a ,
+    #topnav .navigation-menu .active i {
+        color: #5fbeaa;
+    }
+    #topnav .navigation-menu > li > a {
+        padding-top: 30px;
+        padding-bottom: 28px;
+    }
+
+}
+
+
+
+.nav-tabs > li.active > a{
+    margin: 0;
+}
+.nav.nav-tabs > li > a{
+    font-family: inherit;
+}
+
+.title-head{
+    padding: 3px;
+    font-size: 20px;
+}
+
+.dropdown-menu.btn-lang > li > a {
+    text-align: -webkit-center;
+    padding: 10px 20px;
+}

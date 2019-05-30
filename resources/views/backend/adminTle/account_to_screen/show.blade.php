@@ -1,0 +1,75 @@
+@extends(Config::get('back_theme').'.layouts.app')
+@section('htmlheader_title')
+{{ trans('backend/account_to_companytype.title') }}
+@endsection
+
+@section('contentheader_title')
+{{ trans('backend/account_to_companytype.title') }}
+@endsection
+
+@section('contentheader_description')
+{{ trans('backend/account_to_companytype.contentheader_description') }}
+@endsection
+
+@section('content')
+   
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">        
+        <div class="box box-info">
+
+
+            <div class="box-header with-border">
+                <div class="pull-left">
+
+                     <h3 class="box-title">{{ trans('backend/account_to_companytype.title') }}</h3> 
+
+                </div>
+                <div class="pull-right">
+                    @permission('account-edit')
+                        <a href="{{ url('backend/account_to_companytype/' . $account_to_companytype->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit account_to_companytype"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        {!! Form::open([
+                            'method'=>'DELETE',
+                            'url' => ['backend/account_to_companytype', $account_to_companytype->id],
+                            'style' => 'display:inline'
+                        ]) !!}
+                            {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true"/>', array(
+                                    'type' => 'submit',
+                                    'class' => 'btn btn-danger btn-xs',
+                                    'title' => 'Delete account_to_companytype',
+                                    'onclick'=>'return confirm("Confirm delete?")'
+                            ))!!}
+                        {!! Form::close() !!}
+                    @endpermission
+                </div>
+            </div>
+
+            @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
+                        <div class="box-body"> 
+
+
+                            <div class="table-responsive">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <th>ID</th><td>{{ $account_to_companytype->id }}</td>
+                                        </tr>
+                                        <tr><th> Account Id </th><td> {{ $account_to_companytype->account_id }} </td></tr><tr><th> Company Type Id </th><td> {{ $account_to_companytype->company_type_id }} </td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+        </div>
+    </div>
+</div> 
+   
+@endsection

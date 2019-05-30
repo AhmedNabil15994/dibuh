@@ -1,0 +1,43 @@
+ /*master css*/
+ .dashboard_title,.dashboard_title   > a:link{background: #3bc492;color: #fff}
+.dashboard_title   a:hover { color: #3bc492}
+ /*user dashboard*/
+ .container .dashboard{margin-bottom: 30px}
+ }
+
+ .dashboard.pic
+{
+     margin-top:50px; 
+     width:120px;
+     margin-right:50px;
+     margin-bottom:-60px;
+}
+
+.dashboard .panel
+{
+    background-image:url("http://autoimagesize.com/wp-content/uploads/2014/01/rainbow-aurora-background-wallpaper-colour-images-rainbow-background.jpg"); 
+}
+
+.dashboard .name
+{
+    position:absolute;
+    padding-left:200px;
+    font-size:30px;
+}
+
+.dashboard .change
+{
+ position:relative; 
+ bottom:20px;
+ padding:1px;
+ color:white;
+ text-decoration:none;
+}
+
+
+.dashboard.change:hover
+{
+ text-decoration:none;
+ background-color:black;
+ color:white;
+}

@@ -1,0 +1,8 @@
+ALTER TABLE `user_profiles` 
+ADD `email` VARCHAR(150) NOT NULL AFTER `fax`,
+ADD `postal_code` VARCHAR(9) NOT NULL AFTER `email`;
+
+ALTER TABLE `user_profiles` 
+ADD `country_id` INT(10) UNSIGNED NOT NULL AFTER `company`, 
+ADD `governorate_id` INT(10) UNSIGNED NOT NULL AFTER `country_id`, 
+ADD `district` VARCHAR(50) NULL AFTER `governorate_id`;

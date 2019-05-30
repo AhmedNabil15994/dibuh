@@ -1,0 +1,5 @@
+                {!!  Form::select2('account_id', 
+                (['' =>  trans('master.select_item_from_list') ] + $accounts), 
+                $acc, 
+                ['id' => 'account_id','class' => 'form-control ','style' => 'padding:0px',''=>'']
+                ,  $accounts_major) !!} 

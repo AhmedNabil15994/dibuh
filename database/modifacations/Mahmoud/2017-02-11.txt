@@ -1,0 +1,8 @@
+ALTER TABLE `user_profiles` ADD `url` VARCHAR(75) NULL AFTER `postal_code`;
+
+ALTER TABLE `accounts`
+  DROP `tax`;
+
+ALTER TABLE `accounts`
+  DROP `tax_1`,
+  DROP `tax_2`;

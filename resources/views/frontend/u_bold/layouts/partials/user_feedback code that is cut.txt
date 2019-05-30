@@ -1,0 +1,9 @@
+ <?php $feedback=\DB::table('user_feedbacks')->where('user_id',Auth::user()->id)->get();// dd(count($feedback)); ?>
+                  @if(!count($feedback))
+                    <li>
+                        <a data-target="#feedbackModel" href="#feedbackModel" data-toggle="modal" data-step="8" data-intro="?? ?????? ??????? " data-position='left'  class="waves-effect waves-light profile">{{trans('frontend/dashboard.feedback')}}</a>
+
+                    </li>
+
+
+                  @endif

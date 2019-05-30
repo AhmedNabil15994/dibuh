@@ -1,0 +1,55 @@
+ 
+.option_box .gear_check,
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus,
+.dropdown-menu > li > a:hover, 
+.dropdown-menu > li > a:focus ,
+.carousel-indicators .active  
+{
+    background: #E41B17;
+}
+
+.top_page_header .social_list li .hvr-shutter-out-vertical::before {
+    background: #E41B17 none repeat scroll 0 0;
+}
+
+.dropdown-menu ,.top_page_header
+{
+    border-top: 3px solid #E41B17;      
+}
+
+.navbar-inverse .navbar-brand   span,
+.page_header .logo-image span ,
+.testimonials h1 span
+{
+{
+    color:  #E41B17;
+}
+ 
+ .option_box .color_option,
+.testimonials .carousel-indicators li.active 
+{
+	border: 2px solid #E41B17;
+}
+
+#nav_bar {
+    background-color: #3bc492;
+}
+
+.about h1 span {
+    color: #E41B17;
+}
+
+
+
+ 
+
+
+
+
+
+
+
+
+

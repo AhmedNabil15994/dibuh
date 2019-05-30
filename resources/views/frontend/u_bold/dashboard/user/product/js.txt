@@ -1,0 +1,31 @@
+ 
+        $(function () {
+            // Get IDs for countries and cities
+            var taxt_type_id = {{ old('taxt_type_id', $product->tax->taxType->id) }};
+            var city_id = {{ old('city', $product->tax->id) }};
+            // Country select
+            $('#tax_type_id').val(taxt_type_id).prop('selected', true);
+            // Sync of cities
+            taxUpdate(tax_type_id);
+            // Country change event
+            $('#tax_type_id').on('change', function (e) {
+                var tax_type_id = e.target.value;
+                tax_id = false;
+                taxUpdate(tax_type_id);
+            });
+            // Ajax Request for cities
+            function taxUpdate(taxTypeId) {
+                $.get('/api/tax-dropdown?cat_id=' + taxTypeId + "'", function (data) {
+                    $('#tax').empty();
+                    $.each(data, function (index, taxes) {
+                        $('#tax').append($('<option>', {
+                            value: taxes.id,
+                            text: taxes.name
+                        }));
+                    });
+                    if (taxTypeId) {
+                        $('#tax').val(tax_id).prop('selected', true);
+                    }
+                });
+            }
+        });
